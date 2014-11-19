@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="climAngularApp" ng-controller="ClimAngularCtrl as vm">
+
+<head>
+    <title>ClimAngularJS Avanzado</title>
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta lang="es"/>
+    <meta name="description" content="Tutorial para una aplicación sencilla pero completa en AngularJS por Alberto Basalo"/>
+    <meta name="author" content="Alberto Basalo @ Ágora Binaria"/>
+    <meta name="application-name" content="ClimAngularJS"/>
+    <meta name="Keywords" content="AngularJS, ejemplo, tutorial, curso, factoria, factory, directiva, directive"/>
+    <link rel="author" href="https://plus.google.com/+AlbertoBasalo71"/>
+</head>
+
+<body class="container-fluid">
+    <header>
+        <h1>Open Weather Map</h1>
+    </header>
+    <section>
+        <div class="form-inline">
+            <input class="form-control" type="text" ng-model="vm.city_name" />
+            <select class="form-control" ng-model="vm.country_code" ng-options="country.code as country.name for country in vm.countries"></select>
+            <button class="btn btn-primary" ng-click="vm.add_city()">ADD</button>
+        </div>
+        <hr>
+        <div class="form-inline">
+            Filter cities:
+            <input type="text" class="form-control" ng-model="vm.search_city" />
+        </div>
+        <hr>
+        <ul class="list-unstyled">
+            <li ng-repeat="city in vm.city_list | filter:vm.search_city">
+                <!-- Consumimos una directiva creada por nosotros-->
+                <!-- Permite un HTML más semántico -->
+                <!-- Dispone de su propio scope que recibe datos vía atributos-->
+                <ciudad-con-clima ciudad='city'> </ciudad-con-clima>
+                <hr>
+            </li>
+        </ul>
+    </section>
+    <footer>
+        <!-- Una directiva en su versión más simple, nos vale para reutilizar html-->
+        <pie-pagina></pie-pagina>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
