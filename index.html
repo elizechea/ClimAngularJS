@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="climAngularApp" ng-controller="ClimAngularCtrl as vm">
+<head>
+    <title>ClimAngularJS</title>
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta lang="es"/>
+    <meta name="description" content="Tutorial para una aplicación sencilla pero completa en AngularJS por Alberto Basalo"/>
+    <meta name="author" content="Alberto Basalo @ Ágora Binaria"/>
+    <meta name="application-name" content="ClimAngularJS"/>
+    <meta name="Keywords" content="AngularJS, ejemplo, tutorial, curso, ng-repeat, filter, $http"/>
+    <link rel="author" href="https://plus.google.com/+AlbertoBasalo71"/>
+</head>
+<body class="container-fluid">
+    <header>
+        <h1>ClimAngularJS: El cllima en AngularJS</h1>
+    </header>
+    <section>
+        <div class="form-inline">
+            <input class="form-control" type="text" ng-model="vm.city_name" />
+            <!-- Directiva ng-options con una expresión que recorre un lista generando las opciones del desplegable -->
+            <select class="form-control" ng-model="vm.country_code" ng-options="country.code as country.name for country in vm.countries"></select>
+            <button class="btn btn-primary" ng-click="vm.add_city()">ADD</button>
+        </div>
+        <hr>
+        <div class="form-inline">
+            <span> Ver sólo ciudades según el filtro : </span> 
+            <input type="text" class="form-control" ng-model="vm.search_city" />
+        </div>
+        <hr>
+        <ul class="list-unstyled">
+            <!-- Directiva ng-repeat recorre un array y genera elementos para cada elemento-->
+            <!-- El operador | actúa como un pipa linux enviando contenido al siguiente comando, en este caso un filtro-->
+            <li ng-repeat="city in vm.city_list | filter:vm.search_city">
+                <!-- Dentro se tratabaja contra el iterador (city) definido en la expresión supuerior-->
+                <span>{{city.city_name}}, {{city.country_code}} </span>
+                <span name="icon">
+                    <img ng-src="http://openweathermap.org/img/w/{{city.weather.weather[0].icon}}.png" />
+                </span> 
+                <span name="status">{{city.weather.main.temp}} ºC</span>
+                <!-- Aquí vemos ejemplos de otros filtros como uppercase y date-->
+                <span name="status">{{city.weather.weather[0].description | uppercase}}</span>
+                <span name="sunrise">Sunrise: {{city.weather.sys.sunrise *1000 | date:'HH:mm:ss Z'}}</span>
+                <hr>
+            </li>
+        </ul>
+    </section>
+    <footer>
+        <hr>
+        <p>Código de ejemplo creado por <a href="https://twitter.com/albertobasalo">Alberto Basalo</a> de <a href="http://agorabinaria.com">Ágora Binaria</a></p>
+        <p>Accede a este y otros contenidos formativos en <a href="https://github.com/orgs/AcademiaBinaria/dashboard">GitHub-AcademiaBinaria</a></p>
+        <p>API provided by <a href="http://openweathermap.org/api">Openweathermap</a></p>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+    <!-- En este ejemplo, la lógica está en su propio fichero javascript.-->
+    <script src="app.js"></script>
+</body>
+</html>
